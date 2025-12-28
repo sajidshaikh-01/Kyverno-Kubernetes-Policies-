@@ -1,0 +1,17 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: add-labels
+spec:
+  rules:
+  - name: append-labels
+    match:
+      resources:
+        kinds:
+        - Deployment
+    mutate:
+      patchStrategicMerge:
+        metadata:
+          labels:
+            environment: dev
+            app: critical
