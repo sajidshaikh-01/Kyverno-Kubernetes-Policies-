@@ -1,0 +1,16 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: enforce-annotations
+spec:
+  rules:
+  - name: add-annotations
+    match:
+      resources:
+        kinds:
+        - Service
+    mutate:
+      patchStrategicMerge:
+        metadata:
+          annotations:
+            "service.beta.kubernetes.io/aws-load-balancer-type": "nlb"
